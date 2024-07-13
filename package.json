@@ -1,0 +1,26 @@
+{
+  "name": "bra-calculator",
+  "version": "0.3.0",
+  "description": "Bra calculator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aytvill/bra-calculator.git"
+  },
+  "keywords": [
+    "bra",
+    "calculator"
+  ],
+  "author": "aytvill",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aytvill/bra-calculator/issues"
+  },
+  "homepage": "https://github.com/aytvill/bra-calculator#readme",
+  "dependencies": {
+    "bootstrap3": "^3.3.5"
+  }
+}

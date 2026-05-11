@@ -1,0 +1,12 @@
+{
+  "name": "bra-calculator",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Static UK and DE bra size calculator.",
+  "scripts": {
+    "test": "node --test",
+    "test:unit": "node --test test/calculator-core.test.js",
+    "test:integration": "node --test test/app.integration.test.js"
+  },
+  "devDependencies": {}
+}

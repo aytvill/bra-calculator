@@ -8,7 +8,7 @@
     const label = document.createElement('small');
     label.textContent = countryCode;
 
-    element.append(label, ` ${result.band} ${result.cup}`);
+    element.append(label, ` ${window.BraCalculator.sizeText(result)}`);
   }
 
   function updateSizes() {

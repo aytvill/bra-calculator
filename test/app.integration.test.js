@@ -11,6 +11,7 @@ class FakeElement {
     this.children = [];
     this.listeners = new Map();
     this.textContent = '';
+    this.hidden = false;
   }
 
   addEventListener(type, listener) {
@@ -41,6 +42,7 @@ function loadApplication() {
     bust: new FakeElement('bust', '93'),
     ukSize: new FakeElement('ukSize'),
     deSize: new FakeElement('deSize'),
+    formError: new FakeElement('formError'),
   };
 
   const document = {
@@ -91,4 +93,21 @@ test('updates both calculator results when the form is submitted', () => {
   assert.equal(prevented, true);
   assert.equal(elements.ukSize.textContent, 'UK 34 C');
   assert.equal(elements.deSize.textContent, 'DE 75 C');
+  assert.equal(elements.formError.hidden, true);
+});
+
+test('shows an error and clears the results for invalid measurements', () => {
+  const { elements } = loadApplication();
+  elements.underbust.value = '90';
+  elements.bust.value = '80';
+
+  elements.braCalculator.dispatchEvent('submit', { preventDefault() {} });
+
+  assert.equal(elements.formError.hidden, false);
+  assert.equal(
+    elements.formError.textContent,
+    'The bust measurement must be at least as large as the underbust measurement.',
+  );
+  assert.equal(elements.ukSize.textContent, '—');
+  assert.equal(elements.deSize.textContent, '—');
 });

@@ -22,9 +22,9 @@ test('returns the default legacy result when measurements are missing or outside
   assert.deepEqual(calculateDeSize(140, 150), { band: 'Oh', cup: 'Oh' });
 });
 
-test('returns the legacy invalid marker when bust is too small or too large for a supported band', () => {
-  assert.deepEqual(calculateUkSize(60, 59), { band: 'ò', cup: 'Ô’' });
-  assert.deepEqual(calculateDeSize(60, 200), { band: 'ò', cup: 'Ô’' });
+test('explains when the bust is too small or too large for a supported band', () => {
+  assert.equal(formatSize('UK', calculateUkSize(60, 59)), 'UK Outside the supported size range');
+  assert.equal(formatSize('DE', calculateDeSize(60, 200)), 'DE Outside the supported size range');
 });
 
 test('formats calculated sizes for display', () => {

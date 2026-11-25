@@ -92,3 +92,12 @@ test('updates both calculator results when the form is submitted', () => {
   assert.equal(elements.ukSize.textContent, 'UK 34 C');
   assert.equal(elements.deSize.textContent, 'DE 75 C');
 });
+
+test('shows an out-of-range message only for the affected sizing system', () => {
+  const { elements } = loadApplication();
+  elements.underbust.value = '60';
+  elements.bust.value = '62';
+  elements.braCalculator.dispatchEvent('submit', { preventDefault() {} });
+  assert.equal(elements.ukSize.textContent, 'UK 26 AAA');
+  assert.equal(elements.deSize.textContent, 'DE Outside the supported size range');
+});

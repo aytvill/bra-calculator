@@ -7,7 +7,7 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  const INVALID_RESULT = Object.freeze({ band: 'ò', cup: 'Ô’' });
+  const INVALID_RESULT = Object.freeze({ error: 'Outside the supported size range' });
   const DEFAULT_RESULT = Object.freeze({ band: 'Oh', cup: 'Oh' });
 
   const UK_CUPS = Object.freeze([
@@ -71,8 +71,12 @@
     return Number.isFinite(parsed) ? parsed : NaN;
   }
 
+  function sizeText(result) {
+    return result.error || `${result.band} ${result.cup}`;
+  }
+
   function formatSize(countryCode, result) {
-    return `${countryCode} ${result.band} ${result.cup}`;
+    return `${countryCode} ${sizeText(result)}`;
   }
 
   function findBand(underbust, bands) {
@@ -118,5 +122,6 @@
     calculateDeSize,
     calculateUkSize,
     formatSize,
+    sizeText,
   };
 });

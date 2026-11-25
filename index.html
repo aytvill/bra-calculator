@@ -26,7 +26,7 @@
       <div class="row g-4">
         <section class="col-md-4" aria-labelledby="calculator-heading">
           <h2 class="visually-hidden" id="calculator-heading">Calculator form</h2>
-          <form id="braCalculator">
+          <form id="braCalculator" novalidate>
             <div class="mb-3">
               <label class="form-label" for="underbust">Underbust</label>
               <input
@@ -53,6 +53,7 @@
                 required
               >
             </div>
+            <p id="formError" class="text-danger" role="alert" hidden></p>
             <button id="calc" type="submit" class="btn btn-primary btn-lg w-100">Calculate</button>
           </form>
         </section>

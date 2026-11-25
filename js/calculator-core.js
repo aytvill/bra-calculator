@@ -10,6 +10,11 @@
   const INVALID_RESULT = Object.freeze({ band: 'ò', cup: 'Ô’' });
   const DEFAULT_RESULT = Object.freeze({ band: 'Oh', cup: 'Oh' });
 
+  const SUPPORTED_UNDERBUST_MIN = 58;
+  const SUPPORTED_UNDERBUST_MAX = 133;
+  const SUPPORTED_BUST_MIN = 58;
+  const SUPPORTED_BUST_MAX = 200;
+
   const UK_CUPS = Object.freeze([
     'AAA', 'AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG',
     'H', 'HH', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N',
@@ -71,6 +76,68 @@
     return Number.isFinite(parsed) ? parsed : NaN;
   }
 
+  function validateMeasurements(underbust, bust) {
+    const underbustText = underbust === null || underbust === undefined ? '' : String(underbust).trim();
+    const bustText = bust === null || bust === undefined ? '' : String(bust).trim();
+
+    if (!underbustText || !bustText) {
+      return {
+        valid: false,
+        code: 'required',
+        message: 'Enter both measurements in centimetres.',
+      };
+    }
+
+    const underbustNumber = Number(underbustText);
+    const bustNumber = Number(bustText);
+
+    if (!Number.isFinite(underbustNumber) || !Number.isFinite(bustNumber)) {
+      return {
+        valid: false,
+        code: 'not-a-number',
+        message: 'Measurements must be numbers.',
+      };
+    }
+
+    if (underbustNumber <= 0 || bustNumber <= 0) {
+      return {
+        valid: false,
+        code: 'not-positive',
+        message: 'Measurements must be greater than zero.',
+      };
+    }
+
+    if (bustNumber < underbustNumber) {
+      return {
+        valid: false,
+        code: 'bust-smaller',
+        message: 'The bust measurement must be at least as large as the underbust measurement.',
+      };
+    }
+
+    if (
+      underbustNumber < SUPPORTED_UNDERBUST_MIN ||
+      underbustNumber >= SUPPORTED_UNDERBUST_MAX ||
+      bustNumber < SUPPORTED_BUST_MIN ||
+      bustNumber > SUPPORTED_BUST_MAX
+    ) {
+      return {
+        valid: false,
+        code: 'out-of-range',
+        message:
+          'Measurements are outside the supported range (underbust 58–132 cm, bust 58–200 cm).',
+      };
+    }
+
+    return {
+      valid: true,
+      code: null,
+      message: null,
+      underbust: underbustNumber,
+      bust: bustNumber,
+    };
+  }
+
   function formatSize(countryCode, result) {
     return `${countryCode} ${result.band} ${result.cup}`;
   }
@@ -118,5 +185,6 @@
     calculateDeSize,
     calculateUkSize,
     formatSize,
+    validateMeasurements,
   };
 });

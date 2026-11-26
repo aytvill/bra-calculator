@@ -45,7 +45,8 @@
     { min: 113, max: 118, band: '46', thresholdStart: 110 },
     { min: 118, max: 123, band: '46', thresholdStart: 110 },
     { min: 123, max: 128, band: '48', thresholdStart: 115 },
-    { min: 128, max: 133, band: '52', thresholdStart: 125 },
+    { min: 128, max: 133, band: '50', thresholdStart: 120 },
+    { min: 133, max: 138, band: '52', thresholdStart: 125 },
   ]);
 
   const DE_BANDS = Object.freeze([
@@ -63,7 +64,8 @@
     { min: 113, max: 118, band: '105', thresholdStart: 113 },
     { min: 118, max: 123, band: '105', thresholdStart: 113 },
     { min: 123, max: 128, band: '110', thresholdStart: 118 },
-    { min: 128, max: 133, band: '120', thresholdStart: 128 },
+    { min: 128, max: 133, band: '115', thresholdStart: 123 },
+    { min: 133, max: 138, band: '120', thresholdStart: 128 },
   ]);
 
   function toMeasurement(value) {

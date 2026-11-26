@@ -30,3 +30,13 @@ test('returns the legacy invalid marker when bust is too small or too large for 
 test('formats calculated sizes for display', () => {
   assert.equal(formatSize('UK', { band: '34', cup: 'C' }), 'UK 34 C');
 });
+
+test('keeps each of the last two bands reachable up to its exclusive upper bound', () => {
+  for (const [underbust, uk, de] of [
+    [127.9, '48', '110'], [128, '50', '115'], [132.9, '50', '115'],
+    [133, '52', '120'], [137.9, '52', '120'], [138, 'Oh', 'Oh'],
+  ]) {
+    assert.equal(calculateUkSize(underbust, 145).band, uk);
+    assert.equal(calculateDeSize(underbust, 145).band, de);
+  }
+});
